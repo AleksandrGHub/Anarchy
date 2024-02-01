@@ -32,26 +32,32 @@
 
         public void ShowByDisease()
         {
-
             Console.Write("Введите заболевание: ");
 
             string userInput = Console.ReadLine();
 
             Console.Clear();
 
-            var patients = (_patients.Where(patient => patient.Disease == userInput)).ToList();
+            var patients = _patients.Where(patient => patient.Disease == userInput);
 
-            foreach (var patient in patients)
-            {
-                patient.ShowInfo();
-            }
+            ShowInfo(patients);
 
-            if (patients.Count == 0)
+            if (patients.Count() == 0)
             {
                 Console.WriteLine("Такого заболевания нет в списке.");
             }
 
             Console.ReadKey();
+        }
+
+        private void ShowInfo(IEnumerable<Patient> patients)
+        {
+            foreach (var patient in patients)
+            {
+                patient.ShowInfo();
+            }
+
+            Console.WriteLine();
         }
 
         private void AddPatients()
